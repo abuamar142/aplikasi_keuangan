@@ -8,6 +8,7 @@ from daftar import Ui_MainWindow as daftar_admin
 from menu import Ui_MainWindow as menu_aplikasi
 from key_utama import Ui_MainWindow as key
 from input_syahriah import Ui_MainWindow as pembayaran
+from input_nama import Ui_MainWindow as nama
 
 import model as model
 
@@ -19,6 +20,10 @@ class cashflowAplikasi(halaman_awal):
 
         self.pushButtonDaftar.clicked.connect(self.daftarAdmin)
         self.pushButtonMasuk.clicked.connect(self.tampilanMenu)
+
+        self.pesan = QtWidgets.QMessageBox()
+        self.pesan.setIcon(QMessageBox.Warning)
+        self.pesan.setWindowTitle("Perhatian")
 
     def daftarAdmin(self):
         self.daftarAdminMain = QtWidgets.QMainWindow()
@@ -38,19 +43,15 @@ class cashflowAplikasi(halaman_awal):
             passwordDariDatabase = model.bacaData(username)[1]
         except:
             pass
-        
-        pesan = QtWidgets.QMessageBox()
-        pesan.setIcon(QMessageBox.Warning)
-        pesan.setWindowTitle("Perhatian")
 
         if username == "" or password == "":
-            pesan.setText("Masukkan Username dan Password terlebih dahulu..!!")
-            pesan.exec_()
+            self.pesan.setText("Masukkan Username dan Password terlebih dahulu..!!")
+            self.pesan.exec_()
         elif password != passwordDariDatabase:
             self.lineEditUsername.setText(None)
             self.lineEditPassword.setText(None)
-            pesan.setText("Username atau Password yang anda masukkan salah..!!")
-            pesan.exec_()
+            self.pesan.setText("Username atau Password yang anda masukkan salah..!!")
+            self.pesan.exec_()
         elif password == passwordDariDatabase:
             self.tampilanMenuMain.show()
 
@@ -64,15 +65,15 @@ class daftarAdminAplikasi(daftar_admin):
 
         self.pushButtonSimpan.clicked.connect(self.simpanAdmin)
         
+        self.pesan = QtWidgets.QMessageBox()
+        self.pesan.setIcon(QMessageBox.Warning)
+        self.pesan.setWindowTitle("Perhatian")
+
     def simpanAdmin(self):
 
         self.username = self.lineEditUsername.text()
         self.password = self.lineEditPassword.text()
         self.passwordLagi = self.lineEditPasswordlagi.text()
-        
-        self.pesan = QtWidgets.QMessageBox()
-        self.pesan.setIcon(QMessageBox.Warning)
-        self.pesan.setWindowTitle("Perhatian")
         
         if self.username == "" or self.password == "" or self.passwordLagi == "":
             self.pesan.setText("Masukkan Username dan Password terlebih dahulu..!!")
@@ -112,13 +113,38 @@ class tampilanManuAplikasi(menu_aplikasi):
         menu_aplikasi.__init__(self)
         self.setupUi(dialog)
 
-        self.pushButtonInput.clicked.connect(self.inputPembayaran)
+        self.pushButtonInputPembayaran.clicked.connect(self.inputPembayaran)
+        self.pushButtonInputNama.clicked.connect(self.inputNama)
+
+        self.pesan = QtWidgets.QMessageBox()
+        self.pesan.setIcon(QMessageBox.Warning)
+        self.pesan.setWindowTitle("Perhatian")
 
     def inputPembayaran(self):
         self.inputPembayaranMain = QtWidgets.QMainWindow()
         self.inputPembayaranUi = pembayaran()
         self.inputPembayaranUi.setupUi(self.inputPembayaranMain)
         self.inputPembayaranMain.show()
+
+    def inputNama(self):
+        self.inputNamaMain = QtWidgets.QMainWindow()
+        self.inputNamaUi = nama()
+        self.inputNamaUi.setupUi(self.inputNamaMain)
+        self.inputNamaMain.show()
+
+        self.inputNamaUi.pushButtonSimpan.clicked.connect(self.tambahNama)
+        self.inputNamaUi.pushButtonSelesai.clicked.connect(self.inputNamaMain.close)
+
+    def tambahNama(self):
+        self.namaBaru = self.inputNamaUi.lineEditnama.text()
+        
+        model.tambahNama(self.namaBaru)
+        self.pesan.setText(f"Nama {self.namaBaru} berhasil ditambahkan..!!")
+        self.pesan.exec_()
+        self.inputNamaUi.lineEditnama.setText(None)
+
+    # def tampilkanNama(self):
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

@@ -55,4 +55,13 @@ def keyUtama():
     
     return key
 
-buatDataSyahriah()
+def tambahNama(nama):
+    try:    
+        cursor.execute('''
+                INSERT INTO syahriah(nama)
+                VALUES (?)
+        ''',    (nama,))
+        connection.commit()
+        print("Data berhasil ditambahkan..!!")
+    except sqlite3.Error as error:
+        print(error)

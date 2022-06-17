@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'menu.ui'
+# Form implementation generated from reading ui file 'input_nama.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.6
 #
@@ -14,11 +14,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(503, 378)
+        MainWindow.resize(601, 486)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 481, 361))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 581, 461))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(5, 5, 5, 5)
@@ -34,22 +34,38 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.label_4)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem1)
-        self.pushButtonInputNama = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButtonInputNama.setObjectName("pushButtonInputNama")
-        self.verticalLayout.addWidget(self.pushButtonInputNama)
-        self.pushButtonInputPembayaran = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButtonInputPembayaran.setObjectName("pushButtonInputPembayaran")
-        self.verticalLayout.addWidget(self.pushButtonInputPembayaran)
-        self.pushButtonLihat = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButtonLihat.setObjectName("pushButtonLihat")
-        self.verticalLayout.addWidget(self.pushButtonLihat)
+        self.tableWidgetNama = QtWidgets.QTableWidget(self.verticalLayoutWidget)
+        self.tableWidgetNama.setObjectName("tableWidgetNama")
+        self.tableWidgetNama.setColumnCount(0)
+        self.tableWidgetNama.setRowCount(0)
+        self.verticalLayout.addWidget(self.tableWidgetNama)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem2)
-        self.pushButtonRiwayat = QtWidgets.QPushButton(self.verticalLayoutWidget)
-        self.pushButtonRiwayat.setObjectName("pushButtonRiwayat")
-        self.verticalLayout.addWidget(self.pushButtonRiwayat)
+        self.formLayout = QtWidgets.QFormLayout()
+        self.formLayout.setContentsMargins(-1, 5, -1, 5)
+        self.formLayout.setObjectName("formLayout")
+        self.label = QtWidgets.QLabel(self.verticalLayoutWidget)
+        self.label.setObjectName("label")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.label)
+        self.lineEditnama = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.lineEditnama.setAlignment(QtCore.Qt.AlignCenter)
+        self.lineEditnama.setObjectName("lineEditnama")
+        self.formLayout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.lineEditnama)
+        self.verticalLayout.addLayout(self.formLayout)
+        self.pushButtonSimpan = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButtonSimpan.setObjectName("pushButtonSimpan")
+        self.verticalLayout.addWidget(self.pushButtonSimpan)
         spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem3)
+        self.horizontalLayout = QtWidgets.QHBoxLayout()
+        self.horizontalLayout.setContentsMargins(-1, 5, -1, 5)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem4)
+        self.pushButtonSelesai = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pushButtonSelesai.setObjectName("pushButtonSelesai")
+        self.horizontalLayout.addWidget(self.pushButtonSelesai)
+        self.verticalLayout.addLayout(self.horizontalLayout)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -58,11 +74,10 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label_4.setText(_translate("MainWindow", "Menu Aplikasi"))
-        self.pushButtonInputNama.setText(_translate("MainWindow", "Input Nama"))
-        self.pushButtonInputPembayaran.setText(_translate("MainWindow", "Input Pembayaran"))
-        self.pushButtonLihat.setText(_translate("MainWindow", "Lihat Tagihan"))
-        self.pushButtonRiwayat.setText(_translate("MainWindow", "Riwayat Pembayaran"))
+        self.label_4.setText(_translate("MainWindow", "Input Nama"))
+        self.label.setText(_translate("MainWindow", "Masukkan Nama : "))
+        self.pushButtonSimpan.setText(_translate("MainWindow", "Simpan"))
+        self.pushButtonSelesai.setText(_translate("MainWindow", "Selesai"))
 
 
 if __name__ == "__main__":
