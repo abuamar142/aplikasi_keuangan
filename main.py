@@ -131,6 +131,7 @@ class tampilanManuAplikasi(menu_aplikasi):
         self.inputNamaUi = nama()
         self.inputNamaUi.setupUi(self.inputNamaMain)
         self.inputNamaMain.show()
+        self.tampilkanNama()
 
         self.inputNamaUi.pushButtonSimpan.clicked.connect(self.tambahNama)
         self.inputNamaUi.pushButtonSelesai.clicked.connect(self.inputNamaMain.close)
@@ -142,9 +143,18 @@ class tampilanManuAplikasi(menu_aplikasi):
         self.pesan.setText(f"Nama {self.namaBaru} berhasil ditambahkan..!!")
         self.pesan.exec_()
         self.inputNamaUi.lineEditnama.setText(None)
+        
+        self.inputNamaMain.close()
+        self.inputNama()
 
-    # def tampilkanNama(self):
+    def tampilkanNama(self):
+        dataNama = model.ambilNama()
 
+        for nama in dataNama:
+            rowPosition = self.inputNamaUi.tableWidgetNama.rowCount()
+            self.inputNamaUi.tableWidgetNama.insertRow(rowPosition)
+            self.inputNamaUi.tableWidgetNama.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(str(rowPosition + 1)))
+            self.inputNamaUi.tableWidgetNama.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(nama[0]))
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)

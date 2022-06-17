@@ -65,3 +65,13 @@ def tambahNama(nama):
         print("Data berhasil ditambahkan..!!")
     except sqlite3.Error as error:
         print(error)
+
+def ambilNama():
+    try:
+        data = cursor.execute('''
+                SELECT * FROM syahriah
+        ''')
+        baris = data.fetchall()
+        return baris
+    except sqlite3.Error as e:
+        print(e)
