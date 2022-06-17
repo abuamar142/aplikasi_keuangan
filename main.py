@@ -126,6 +126,19 @@ class tampilanManuAplikasi(menu_aplikasi):
         self.inputPembayaranUi.setupUi(self.inputPembayaranMain)
         self.inputPembayaranMain.show()
 
+        self.namaDiComboBox()
+        self.bulanDiComboBox()
+
+    def namaDiComboBox(self):
+        namaNama = model.ambilNama()
+        for nama in namaNama:
+            self.inputPembayaranUi.comboBoxNama.addItem(nama[0])
+
+    def bulanDiComboBox(self):
+        bulanBulan = model.ambilBulan()
+        for bulan in bulanBulan:
+            self.inputPembayaranUi.comboBoxBulan.addItem(bulan[0].capitalize())
+
     def inputNama(self):
         self.inputNamaMain = QtWidgets.QMainWindow()
         self.inputNamaUi = nama()

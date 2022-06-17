@@ -3,6 +3,9 @@ import sqlite3
 connection = sqlite3.connect("database.db")
 cursor = connection.cursor()
 
+daftarBulan = ("syawal", "dzulqo'dah", "dzulhijjah", "muharram", "safar", "robi'ul awal",
+               "robi'ul akhir", "jumadil awal", "jumadil akhir", "rajab", "sya'ban", "ramadhan")
+
 def buatDataAdmin():
     try:
         cursor.execute('''
@@ -24,6 +27,17 @@ def buatDataSyahriah():
                             [rajab]         INTEGER, [sya'ban]      INTEGER, [ramadhan]      INTEGER)
         ''')
         print("Tabel Syahriah berhasil dibuat..!!")
+        connection.commit()
+    except sqlite3.Error as error:
+        print(error)
+
+def buatListBulan():
+    try:
+        cursor.execute('''
+                CREATE TABLE daftar_bulan
+                ([daftar_bulan] TEXT)
+        ''')
+        print("Tabel Daftar Bulan berhasil dibuat..!!")
         connection.commit()
     except sqlite3.Error as error:
         print(error)
@@ -66,10 +80,32 @@ def tambahNama(nama):
     except sqlite3.Error as error:
         print(error)
 
+def tambahDaftarBulan():
+    try:    
+        for bulan in daftarBulan:
+            cursor.execute('''
+                    INSERT INTO daftar_bulan(daftar_bulan)
+                    VALUES (?)
+            ''',    (bulan,))
+            connection.commit()
+            print("Data berhasil ditambahkan..!!")
+    except sqlite3.Error as error:
+        print(error)
+
 def ambilNama():
     try:
         data = cursor.execute('''
                 SELECT * FROM syahriah
+        ''')
+        baris = data.fetchall()
+        return baris
+    except sqlite3.Error as e:
+        print(e)
+
+def ambilBulan():
+    try:
+        data = cursor.execute('''
+                SELECT * FROM daftar_bulan
         ''')
         baris = data.fetchall()
         return baris
