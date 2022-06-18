@@ -70,11 +70,11 @@ def keyUtama():
     return key
 
 def tambahNama(nama):
-    try:    
-        cursor.execute('''
-                INSERT INTO syahriah(nama)
-                VALUES (?)
-        ''',    (nama,))
+    try: 
+        cursor.execute("""
+                INSERT INTO syahriah("nama", "syawal", "dzulqo'dah", "dzulhijjah", "muharram", "safar", "robi'ul awal", "robi'ul akhir", "jumadil awal", "jumadil akhir", "rajab", "sya'ban", "ramadhan")
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,    (nama, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0))
         connection.commit()
         print("Data berhasil ditambahkan..!!")
     except sqlite3.Error as error:
@@ -109,5 +109,28 @@ def ambilBulan():
         ''')
         baris = data.fetchall()
         return baris
+    except sqlite3.Error as e:
+        print(e)
+
+def dataDariNama(nama):
+    try:
+        data = cursor.execute('''
+                SELECT * FROM syahriah WHERE nama=?
+        ''', (nama,))
+        baris = data.fetchall()
+        return baris
+    except sqlite3.Error as e:
+        print(e)
+
+def ambilIndexBulan(bulanDiComboBox):
+    return daftarBulan.index(bulanDiComboBox)
+
+def bayarDenganNamaDanBulan(namaSaatIni, bulanSaatIni, nominal):
+    try:
+        cursor.execute('''
+                UPDATE syahriah SET {}=? WHERE nama=?
+        '''.format(bulanSaatIni),(nominal, namaSaatIni))
+        connection.commit()
+        print("Pembayaran berhasil ditambahkan..!!")
     except sqlite3.Error as e:
         print(e)

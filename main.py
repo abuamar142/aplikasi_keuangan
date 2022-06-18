@@ -126,8 +126,40 @@ class tampilanManuAplikasi(menu_aplikasi):
         self.inputPembayaranUi.setupUi(self.inputPembayaranMain)
         self.inputPembayaranMain.show()
 
+        self.inputPembayaranUi.pushButton.clicked.connect(self.bayar)
+
         self.namaDiComboBox()
         self.bulanDiComboBox()
+        self.nominalLabel()
+        self.inputPembayaranUi.comboBoxNama.currentTextChanged.connect(self.nominalLabel)
+        self.inputPembayaranUi.comboBoxBulan.currentTextChanged.connect(self.nominalLabel)
+
+
+    def bayar(self):
+        self.namaSaatIni = self.inputPembayaranUi.comboBoxNama.currentText()
+        self.bulanSaatIni = self.inputPembayaranUi.comboBoxBulan.currentText()
+        
+        self.indexBulan = (model.ambilIndexBulan(self.bulanSaatIni.lower())) + 1
+        self.data = model.dataDariNama(self.namaSaatIni)[0]
+        
+        try:
+            self.nominal = int(self.inputPembayaranUi.lineEditUang.text())
+            model.bayarDenganNamaDanBulan(self.namaSaatIni, self.bulanSaatIni, self.nominal)
+
+            self.inputPembayaranUi.labelInfo.setText("Pembayaran berhasil ditambahkan..!!")
+            self.inputPembayaranUi.lineEditUang.setText(None)
+        except:
+            self.inputPembayaranUi.labelInfo.setText("Masukkan angka..!!")
+
+    def nominalLabel(self):
+        self.namaSaatIni = self.inputPembayaranUi.comboBoxNama.currentText()
+        self.bulanSaatIni = self.inputPembayaranUi.comboBoxBulan.currentText()
+
+        self.indexBulan = (model.ambilIndexBulan(self.bulanSaatIni.lower())) + 1
+        self.data = model.dataDariNama(self.namaSaatIni)[0]
+
+        self.inputPembayaranUi.labelInfo.clear()
+        self.inputPembayaranUi.labelInfo.setText(str(self.data[self.indexBulan]))
 
     def namaDiComboBox(self):
         namaNama = model.ambilNama()
