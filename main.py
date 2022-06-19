@@ -9,6 +9,7 @@ from menu import Ui_MainWindow as menu_aplikasi
 from key_utama import Ui_MainWindow as key
 from input_syahriah import Ui_MainWindow as pembayaran
 from input_nama import Ui_MainWindow as nama
+from riwayat_pembayaran import Ui_MainWindow as riwayat
 
 import model as model
 
@@ -115,6 +116,7 @@ class tampilanManuAplikasi(menu_aplikasi):
 
         self.pushButtonInputPembayaran.clicked.connect(self.inputPembayaran)
         self.pushButtonInputNama.clicked.connect(self.inputNama)
+        self.pushButtonRiwayat.clicked.connect(self.riwayatPembayaran)
 
         self.pesan = QtWidgets.QMessageBox()
         self.pesan.setIcon(QMessageBox.Warning)
@@ -200,6 +202,15 @@ class tampilanManuAplikasi(menu_aplikasi):
             self.inputNamaUi.tableWidgetNama.insertRow(rowPosition)
             self.inputNamaUi.tableWidgetNama.setItem(rowPosition, 0, QtWidgets.QTableWidgetItem(str(rowPosition + 1)))
             self.inputNamaUi.tableWidgetNama.setItem(rowPosition, 1, QtWidgets.QTableWidgetItem(nama[0]))
+
+    def riwayatPembayaran(self):
+        self.riwayatPembayaranMain = QtWidgets.QMainWindow()
+        self.riwayatPembayaranUi = riwayat()
+        self.riwayatPembayaranUi.setupUi(self.riwayatPembayaranMain)
+        self.riwayatPembayaranMain.show()
+
+        self.riwayatPembayaranUi.pushButtonKembali.clicked.connect(self.riwayatPembayaranMain.close)
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
